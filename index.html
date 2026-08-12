@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | AI Resume Screener</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">🤖 CrewAI Screener</div>
+        <div class="nav-user">
+            <span>Welcome, <strong>{{ user }}</strong></span>
+            <a href="{{ url_for('logout') }}" class="btn-logout">Logout 🚪</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="hero-banner">
+            <h1 class="hero-title">🚀 AI Resume Screener</h1>
+            <p class="hero-subtitle">Multi-Agent Candidate Analysis Powered by CrewAI + OpenRouter</p>
+        </header>
+
+        <form id="screenerForm" class="grid-container">
+            <div class="card">
+                <h3>📄 Candidate Resume</h3>
+                <div class="input-toggle">
+                    <label><input type="radio" name="resType" value="file" checked onchange="toggleInput('res', 'file')"> Upload File</label>
+                    <label><input type="radio" name="resType" value="text" onchange="toggleInput('res', 'text')"> Paste Text</label>
+                </div>
+
+                <div id="resFileInput" class="input-group">
+                    <input type="file" id="resumeFile" accept=".pdf,.docx,.txt">
+                </div>
+                <div id="resTextInput" class="input-group hidden">
+                    <textarea id="resumeText" rows="8" placeholder="Paste full candidate resume here..."></textarea>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💼 Target Job Description</h3>
+                <div class="input-toggle">
+                    <label><input type="radio" name="jdType" value="file" checked onchange="toggleInput('jd', 'file')"> Upload File</label>
+                    <label><input type="radio" name="jdType" value="text" onchange="toggleInput('jd', 'text')"> Paste Text</label>
+                </div>
+
+                <div id="jdFileInput" class="input-group">
+                    <input type="file" id="jdFile" accept=".pdf,.docx,.txt">
+                </div>
+                <div id="jdTextInput" class="input-group hidden">
+                    <textarea id="jdText" rows="8" placeholder="Paste job description requirements here..."></textarea>
+                </div>
+            </div>
+
+            <div class="full-width">
+                <button type="submit" id="submitBtn">⚡ Run CrewAI Analysis</button>
+            </div>
+        </form>
+
+        <div id="loader" class="loader-container hidden">
+            <div class="spinner"></div>
+            <p id="loaderStatus">🤖 Initializing CrewAI Agents & OpenRouter API connection...</p>
+        </div>
+
+        <section id="results" class="results-container hidden">
+            <hr class="divider">
+            <h2>📊 CrewAI Screening Verdict</h2>
+
+            <div class="grid-container">
+                <div class="card score-card">
+                    <div class="score-box">
+                        <div class="score-number" id="matchScore">0/100</div>
+                        <div class="score-label">Match Score</div>
+                    </div>
+                    <div class="verdict-banner" id="verdictMsg"></div>
+                </div>
+
+                <div class="card details-card">
+                    <h4>🏷️ Skill Matrix Analysis</h4>
+                    <div class="skills-group">
+                        <h5>Matched Skills</h5>
+                        <div id="matchedSkills" class="badge-container"></div>
+                    </div>
+                    <div class="skills-group">
+                        <h5>Missing Skills</h5>
+                        <div id="missingSkills" class="badge-container"></div>
+                    </div>
+
+                    <hr class="divider">
+
+                    <div class="grid-container inner-grid">
+                        <div>
+                            <h5 class="text-success">💪 Strengths</h5>
+                            <ul id="strengthsList"></ul>
+                        </div>
+                        <div>
+                            <h5 class="text-danger">⚠️ Gaps</h5>
+                            <ul id="weaknessesList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

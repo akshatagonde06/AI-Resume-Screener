@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged Out | AI Resume Screener</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="card auth-card" style="text-align: center;">
+            <h2 class="hero-title" style="font-size: 2rem;">👋 Logged Out</h2>
+            <p class="hero-subtitle" style="margin-bottom: 1.5rem;">You have been safely signed out.</p>
+
+            <a href="{{ url_for('login') }}" class="btn-logout" style="display: block; padding: 0.8rem; text-decoration: none;">Sign Back In</a>
+        </div>
+    </div>
+</body>
+</html>
